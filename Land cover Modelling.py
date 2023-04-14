@@ -176,9 +176,9 @@ significance.savefig("Level of Variable Importance_lcmodel .pdf", bbox_inches='t
 plt.show()
 
 # Predict the landcover classes for 2016
-pred=model1.predict(ind_test)
+pred=model1.predict(ind_all)
 # calculate the confusion matrix
-conf=confusion_matrix(pred, d_test)
+conf=confusion_matrix(pred, d2016)
 print("The confusion matrix: ", conf)   
 
 lclabels={0:'cropland', 1:'Forest',2:'Non Forest', 3:'Built-up areas', 4:'Bare areas', 5:'Water'}
@@ -188,7 +188,7 @@ df_conf.rename(index=lclabels, inplace=True)
 np.savetxt('Confusion Matrix_lcmodel.csv',df_conf, delimiter=",") # save the confusion matrix
 
 # computation of the kappa statistics
-kappa= cohen_kappa_score(d_test, d_test)
+kappa= cohen_kappa_score(d2016, d2016)
 print("Kappa value is: ",kappa)
 
 # compute the ROC curve and ROC area for each class
@@ -196,7 +196,7 @@ n_classes=6 # define the number of classes
 # plot line width
 lw=2
 cScores=to_categorical(pred) # convert the predict classes to binary (one hot encoding)
-dlab=to_categorical(d_test)
+dlab=to_categorical(d2016)
 # create the dictionary for false positive rate, true positive rate and area under courve
 fpr={}
 tpr={}
